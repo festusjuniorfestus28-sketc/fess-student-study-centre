@@ -1,0 +1,10 @@
+{
+  "name": "Fess's Business Platform",
+  "short_name": "Fess Platform",
+  "description": "Business Centre and Student Study Centre",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#123b72",
+  "icons": []
+}
