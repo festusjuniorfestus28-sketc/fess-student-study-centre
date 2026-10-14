@@ -480,4 +480,55 @@ if ("serviceWorker" in navigator) {
       .then(() => console.log("Service Worker registered"))
       .catch(error => console.log("Service Worker error:", error));
   });
+  // Grade and subject selection
+
+const gradeSelect = document.getElementById("gradeSelect");
+const subjectsList = document.getElementById("subjectsList");
+
+if (gradeSelect) {
+
+  gradeSelect.addEventListener("change", async () => {
+
+    const grade = gradeSelect.value;
+
+    if (!grade) {
+      subjectsList.textContent = "Select a grade to see subjects";
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("subjects")
+      .select("subject_name")
+      .eq("grade_id", grade);
+
+    if (error) {
+      subjectsList.textContent = "Unable to load subjects";
+      console.log(error);
+      return;
+    }
+
+
+    if (data.length === 0) {
+      subjectsList.textContent = "No subjects found";
+      return;
+    }
+
+
+    subjectsList.innerHTML = "";
+
+    data.forEach(subject => {
+
+      const item = document.createElement("button");
+
+      item.textContent = subject.subject_name;
+
+      item.className = "subject-button";
+
+      subjectsList.appendChild(item);
+
+    });
+
+  });
+
+}
 }
